@@ -1,11 +1,12 @@
-import subprocess
-from urllib import request
-import logging
-from utils.fetcher import Fetcher
-import platform
-import sys
-from utils.generator import Generator
 import json
+import logging
+import platform
+import subprocess
+import sys
+from urllib import request
+
+from utils.fetcher import Fetcher
+from utils.generator import Generator
 
 
 class Initiator:

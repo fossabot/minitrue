@@ -1,5 +1,6 @@
 import argparse
 import logging
+
 from utils.initiator import Initiator
 
 parser = argparse.ArgumentParser(prog='minitrue.py', description='Welcome to the brand new world!',
