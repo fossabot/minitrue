@@ -2,6 +2,7 @@ import base64
 import json
 import logging
 import os
+import shutil
 import socket
 import sys
 
@@ -62,6 +63,10 @@ class Generator:
                                      Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
             Generator.write_new_file('./output/quanx_part.txt',
                                      Converter.convert_sub('../output/clash_temp.txt', 'quanx'))
+        else:
+            shutil.copy('./output/clash_all.txt', './output/clash_part.txt')
+            shutil.copy('./output/surge_all.txt', './output/surge_part.txt')
+            shutil.copy('./output/quanx_all.txt', './output/quanx_part.txt')
 
         logging.info('Subs generated')
 

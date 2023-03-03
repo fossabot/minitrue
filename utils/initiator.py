@@ -42,6 +42,7 @@ class Initiator:
         if mode != 'b':
             test_link = test_links['separate']
 
+        # Notice: Switch here between test list and production list
         nodes_base = './config/sub_list_test.json'
         # nodes_base = './config/sub_list.json'
 
