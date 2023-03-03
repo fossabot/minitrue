@@ -44,25 +44,27 @@ class Initiator:
         if platform.system() == 'Windows':
 
             if not Initiator.find_processes('subconverter'):
-                try:
-                    subprocess.run("start /b ./subconverter/subconverter.exe  >./output/subconverter.log 2>&1",
-                                   timeout=5, shell=True)
-                    if not Initiator.find_processes('subconverter'):
-                        logging.exception('Failed to run subconverter')
-                        sys.exit(1)
-                except subprocess.TimeoutExpired:
+                subprocess.run("start /b ./subconverter/subconverter.exe  >./output/subconverter.log 2>&1", shell=True)
+                time.sleep(5)
+                if not Initiator.find_processes('subconverter'):
                     logging.exception('Failed to run subconverter')
                     sys.exit(1)
 
             if mode != 'd':
                 Fetcher.retrieve_subs(nodes_base)
             if mode != 'i':
+                logging.info('Start testing')
                 subprocess.run(
-                    f"./speedtest/lite.exe --config ./config/speedtest_config.json --test {test_link} 2>&1")
+                    f"start /b ./speedtest/lite-windows.exe --config ./config/speedtest_config.json --test {test_link} >./output/speedtest.log 2>&1",
+                    shell=True)
+                time.sleep(5)
+                process = Initiator.find_processes("lite-windows")
+                if len(process) == 1:
+                    psutil.Process(process[0]).wait()
                 Generator.generate_subs('./out.json', count)
 
         elif platform.system() == 'Linux':
-            subprocess.run("chmod +x ./subconverter/subconverter && chmod +x ./speedtest/lite", shell=True)
+            subprocess.run("chmod +x ./subconverter/subconverter && chmod +x ./speedtest/lite-linux", shell=True)
 
             if not Initiator.find_processes('subconverter'):
                 subprocess.run("nohup ./subconverter/subconverter >./output/subconverter.log 2>&1 &", shell=True)
@@ -74,8 +76,14 @@ class Initiator:
             if mode != 'd':
                 Fetcher.retrieve_subs(nodes_base)
             if mode != 'i':
+                logging.info('Start testing')
                 subprocess.run(
-                    f"./speedtest/lite --config ./config/speedtest_config.json --test {test_link} 2>&1", shell=True)
+                    f"nohup ./speedtest/lite-linux --config ./config/speedtest_config.json --test {test_link} >./output/speedtest.log 2>&1 &",
+                    shell=True)
+                time.sleep(5)
+                process = Initiator.find_processes("lite-linux")
+                if len(process) == 1:
+                    psutil.Process(process[0]).wait()
                 Generator.generate_subs('./out.json', count)
         else:
             logging.exception('Unsupported OS, exit program')

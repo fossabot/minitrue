@@ -13,7 +13,6 @@ parser.add_argument('-c', type=int, default=200, metavar='int', help='extract no
 # TODO: Clash profiles and config
 # TODO: Readme.md & Wiki
 # TODO: Node speed test optimize
-# TODO: Find a way to monitor the running status, and redirect output to log
 # lite-windows-amd64-v3 & lite-linux-amd64 v0.14.1 https://github.com/xxf098/LiteSpeedTest
 # subconverter-win64 & subconverter-linux64 v0.7.2 https://github.com/tindy2013/subconverter
 
