@@ -19,7 +19,7 @@ python minitrue.py -m [b,d,i] -c [int]
 ## Arguments
 
 * **m**: running mode, d for domestic mode, i for international mode, default(b) for both.
-* **c**: count of the fastest nodes which extract from all nodes, default is 200.
+* **c**: total count of the fastest nodes which needed to extract from all nodes, default is 200.
 * **h**: show help document.
 
 **For more information, please refer to [Wiki]().**
