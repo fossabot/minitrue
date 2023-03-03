@@ -31,20 +31,21 @@ class Initiator:
         try:
             request.urlretrieve('https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb',
                                 './country/Country.mmdb')
-            logging.info('Country.mmdb updated')
         except Exception:
             logging.info('Update Country.mmdb failed')
             pass
 
-        with open('./config/nodes_link.json', 'r', encoding='utf-8') as f:
+        with open('./config/test_link.json', 'r', encoding='utf-8') as f:
             test_links = json.load(f)
             f.close()
         test_link = test_links['both']
         if mode != 'b':
             test_link = test_links['separate']
 
-        nodes_base = './config/sub_list.json'
+        nodes_base = './config/sub_list_test.json'
+        # nodes_base = './config/sub_list.json'
 
+        logging.info(f'Program starting with mode: {mode} and count: {count}')
         if platform.system() == 'Windows':
 
             subconverter_pid = subprocess.run('tasklist | findstr "subconverter"', capture_output=True, shell=True)
