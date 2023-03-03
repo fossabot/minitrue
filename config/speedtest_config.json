@@ -5,7 +5,7 @@
   "sortMethod": "rspeed",
   "concurrency": 16,
   "testMode": 2,
-  "timeout": 4,
+  "timeout": 3,
   "fontSize": 24,
   "language": "en",
   "generatePicMode": 3

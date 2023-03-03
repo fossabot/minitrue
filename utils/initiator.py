@@ -4,9 +4,9 @@ import platform
 import subprocess
 import sys
 from pathlib import Path
-from urllib import request
 
 import pkg_resources
+import requests
 
 from utils.fetcher import Fetcher
 from utils.generator import Generator
@@ -24,17 +24,18 @@ class Initiator:
     @staticmethod
     def start_program(mode, count, nodes_base, generate_link):
         if not Initiator.check_pkg():
-            output = subprocess.run("python -m pip install -r ./requirements.txt", capture_output=True, shell=True)
+            output = subprocess.run("pip install -r ./requirements.txt", capture_output=True, shell=True)
             logging.warning(output.stdout.decode('utf-8'))
             if not Initiator.check_pkg():
                 logging.exception('Requirements unsatisfied')
                 sys.exit(1)
 
         try:
-            request.urlretrieve('https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb',
-                                './country/Country.mmdb')
-        except Exception:
-            logging.info('Update Country.mmdb failed')
+            res = requests.get('https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb')
+            with open('./country/Country.mmdb', 'wb') as f:
+                f.write(res.content)
+        except Exception as e:
+            logging.exception(e)
             pass
 
         with open(generate_link, 'r', encoding='utf-8') as f:
@@ -51,7 +52,7 @@ class Initiator:
             if subconverter_pid.stdout.decode('utf-8') == "":
                 try:
                     subprocess.run("start /b ./subconverter/subconverter.exe  >./output/subconverter.log 2>&1",
-                                   timeout=5,shell=True)
+                                   timeout=5, shell=True)
                 except subprocess.TimeoutExpired:
                     logging.exception('Failed to run subconverter')
                     sys.exit(1)
@@ -60,7 +61,7 @@ class Initiator:
                 Fetcher.retrieve_subs(nodes_base)
             if mode != 'i':
                 subprocess.run(
-                    f"./speedtest/lite.exe --config ./config/speedtest_config.json --test {test_link} >./output/speedtest.log 2>&1")
+                    f"./speedtest/lite.exe --config ./config/speedtest_config.json --test {test_link} 2>&1")
                 Generator.generate_subs('./out.json', count)
 
         elif platform.system() == 'Linux':
@@ -71,7 +72,7 @@ class Initiator:
                 Fetcher.retrieve_subs(nodes_base)
             if mode != 'i':
                 subprocess.run(
-                    f"./speedtest/lite --config ./config/speedtest_config.json --test {test_link} >./output/speedtest.log 2>&1 &")
+                    f"./speedtest/lite --config ./config/speedtest_config.json --test {test_link} 2>&1", shell=True)
                 Generator.generate_subs('./out.json', count)
         else:
             logging.exception('Unsupported OS, exit program')
