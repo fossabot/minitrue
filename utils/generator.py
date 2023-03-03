@@ -63,7 +63,6 @@ class Generator:
         else:
             shutil.copy('./output/clash_all.yml', './output/clash_part.yml')
             shutil.copy('./output/surge_all.ini', './output/surge_part.ini')
-        Generator.remove_redundancies()
         logging.info(f'Subs generated, total: {clash.__len__()}')
 
     @staticmethod
@@ -103,9 +102,3 @@ class Generator:
             corresponding_proxies[index]["clash"] = proxy
 
         return corresponding_proxies
-
-    @staticmethod
-    def remove_redundancies():
-        os.unlink('./out.json')
-        os.unlink('./output/base_temp.txt')
-        os.unlink('./output/clash_temp.txt')

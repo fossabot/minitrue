@@ -1,6 +1,7 @@
 import argparse
 import logging
 
+from utils.finisher import Finisher
 from utils.initiator import Initiator
 
 parser = argparse.ArgumentParser(prog='minitrue.py', description='Welcome to the brand new world!',
@@ -11,8 +12,6 @@ parser.add_argument('-c', type=int, default=200, metavar='int', help='extract no
 
 # TODO: Clash profiles and config
 # TODO: Readme.md & Wiki
-# TODO: test three modes and count on Linux
-# TODO: Linux PID, close subconverter after finished
 # TODO: Node speed test optimize
 # TODO: Find a way to monitor the running status, and redirect output to log
 # lite-windows-amd64-v3 & lite-linux-amd64 v0.14.1 https://github.com/xxf098/LiteSpeedTest
@@ -38,3 +37,4 @@ if __name__ == '__main__':
     # generate_link = './config/generate_link_test.json'
 
     Initiator.start_program(args.m, args.c, nodes_base, generate_link)
+    Finisher.remove_redundancies()

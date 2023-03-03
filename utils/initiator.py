@@ -3,9 +3,9 @@ import logging
 import platform
 import subprocess
 import sys
-from pathlib import Path
+import time
 
-import pkg_resources
+import psutil
 import requests
 
 from utils.fetcher import Fetcher
@@ -13,23 +13,19 @@ from utils.generator import Generator
 
 
 class Initiator:
+
     @staticmethod
-    def check_pkg():
-        try:
-            pkg_resources.require(Path('./requirements.txt').open())
-            return True
-        except (pkg_resources.DistributionNotFound, pkg_resources.VersionConflict):
-            return False
+    def find_processes(name):
+        pids = []
+        for p in psutil.process_iter():
+            if p.name().__contains__(name):
+                pids.append(p.pid)
+        return pids
 
     @staticmethod
     def start_program(mode, count, nodes_base, generate_link):
-        if not Initiator.check_pkg():
-            output = subprocess.run("pip install -r ./requirements.txt", capture_output=True, shell=True)
-            logging.warning(output.stdout.decode('utf-8'))
-            if not Initiator.check_pkg():
-                logging.exception('Requirements unsatisfied')
-                sys.exit(1)
-
+        logging.info(f'Program starting with mode: {mode} and count: {count}')
+        logging.info('Try updating Country.mmdb')
         try:
             res = requests.get('https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb')
             with open('./country/Country.mmdb', 'wb') as f:
@@ -45,14 +41,15 @@ class Initiator:
         if mode != 'b':
             test_link = test_links['separate']
 
-        logging.info(f'Program starting with mode: {mode} and count: {count}')
         if platform.system() == 'Windows':
 
-            subconverter_pid = subprocess.run('tasklist | findstr "subconverter"', capture_output=True, shell=True)
-            if subconverter_pid.stdout.decode('utf-8') == "":
+            if not Initiator.find_processes('subconverter'):
                 try:
                     subprocess.run("start /b ./subconverter/subconverter.exe  >./output/subconverter.log 2>&1",
                                    timeout=5, shell=True)
+                    if not Initiator.find_processes('subconverter'):
+                        logging.exception('Failed to run subconverter')
+                        sys.exit(1)
                 except subprocess.TimeoutExpired:
                     logging.exception('Failed to run subconverter')
                     sys.exit(1)
@@ -66,7 +63,13 @@ class Initiator:
 
         elif platform.system() == 'Linux':
             subprocess.run("chmod +x ./subconverter/subconverter && chmod +x ./speedtest/lite", shell=True)
-            subprocess.run("nohup ./subconverter/subconverter >./output/subconverter.log 2>&1 &", shell=True)
+
+            if not Initiator.find_processes('subconverter'):
+                subprocess.run("nohup ./subconverter/subconverter >./output/subconverter.log 2>&1 &", shell=True)
+                time.sleep(5)
+                if not Initiator.find_processes('subconverter'):
+                    logging.exception('Failed to run subconverter')
+                    sys.exit(1)
 
             if mode != 'd':
                 Fetcher.retrieve_subs(nodes_base)
