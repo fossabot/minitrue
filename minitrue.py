@@ -11,8 +11,7 @@ parser.add_argument('-c', type=int, default=200, metavar='int', help='extract no
 
 # TODO: Clash profiles and config
 # TODO: Readme.md & Wiki
-# TODO: test three modes and count on Windows and Linux
-# TODO: Remove redundancies
+# TODO: test three modes and count on Linux
 # lite-windows-amd64-v3 & lite-linux-amd64 v0.14.1 https://github.com/xxf098/LiteSpeedTest
 # subconverter-win64 & subconverter-linux64 v0.7.2 https://github.com/tindy2013/subconverter
 
@@ -29,4 +28,10 @@ if __name__ == '__main__':
     logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
 
-    Initiator.start_program(args.m, args.c)
+    # Notice: Edit here to switch between debug and production situation
+    nodes_base = './config/sub_list.json'
+    generate_link = './config/generate_link.json'
+    # nodes_base = './config/sub_list_test.json'
+    # generate_link = './config/generate_link_test.json'
+
+    Initiator.start_program(args.m, args.c, nodes_base, generate_link)

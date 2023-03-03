@@ -6,6 +6,7 @@
   "concurrency": 16,
   "testMode": 2,
   "timeout": 4,
+  "fontSize": 24,
   "language": "en",
   "generatePicMode": 3
 }

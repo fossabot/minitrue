@@ -1,4 +1,4 @@
 {
   "both": "./output/all_proxies.yml",
-  "separate": "your-url-here"
+  "separate": "your-link-here"
 }

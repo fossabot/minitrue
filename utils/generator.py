@@ -48,27 +48,23 @@ class Generator:
         clash = list(map(lambda x: f"  - {x['clash']}", clash_nodes))
         content_yaml = 'proxies:\n' + "\n".join(clash)
         Generator.write_new_file('./output/clash_temp.txt', content_yaml)
-        Generator.write_new_file('./output/clash_all.txt',
+        Generator.write_new_file('./output/clash_all.yml',
                                  Converter.convert_sub('../output/clash_temp.txt', 'clash', '&list=false'))
-        Generator.write_new_file('./output/surge_all.txt',
+        Generator.write_new_file('./output/surge_all.ini',
                                  Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
-        Generator.write_new_file('./output/quanx_all.txt', Converter.convert_sub('../output/clash_temp.txt', 'quanx'))
 
         if nodes_list.__len__() > num:
-            content_yaml = 'proxies:\n' + "\n".join(clash[:200])
+            content_yaml = 'proxies:\n' + "\n".join(clash[:num])
             Generator.write_new_file('./output/clash_temp.txt', content_yaml)
-            Generator.write_new_file('./output/clash_part.txt',
+            Generator.write_new_file('./output/clash_part.yml',
                                      Converter.convert_sub('../output/clash_temp.txt', 'clash', '&list=false'))
-            Generator.write_new_file('./output/surge_part.txt',
+            Generator.write_new_file('./output/surge_part.ini',
                                      Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
-            Generator.write_new_file('./output/quanx_part.txt',
-                                     Converter.convert_sub('../output/clash_temp.txt', 'quanx'))
         else:
-            shutil.copy('./output/clash_all.txt', './output/clash_part.txt')
-            shutil.copy('./output/surge_all.txt', './output/surge_part.txt')
-            shutil.copy('./output/quanx_all.txt', './output/quanx_part.txt')
-
-        logging.info('Subs generated')
+            shutil.copy('./output/clash_all.yml', './output/clash_part.yml')
+            shutil.copy('./output/surge_all.ini', './output/surge_part.ini')
+        Generator.remove_redundancies()
+        logging.info(f'Subs generated, total: {clash.__len__()}')
 
     @staticmethod
     def fix_name(corresponding_proxies: []):
@@ -107,3 +103,9 @@ class Generator:
             corresponding_proxies[index]["clash"] = proxy
 
         return corresponding_proxies
+
+    @staticmethod
+    def remove_redundancies():
+        os.unlink('./out.json')
+        os.unlink('./output/base_temp.txt')
+        os.unlink('./output/clash_temp.txt')

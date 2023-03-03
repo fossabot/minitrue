@@ -40,12 +40,9 @@ class Cleaner:
                 pass
 
         corresponding_list = []
-        corresponding_id = 0
         if safe_clash.__len__() > 0:
-            for clash_proxy in safe_clash:
-                corresponding_list.append(
-                    {"id": corresponding_id, "c_clash": clash_proxy})
-                corresponding_id += 1
+            for (i, clash_proxy) in enumerate(safe_clash):
+                corresponding_list.append({"id": i, "c_clash": clash_proxy[0]})
 
         corresponding_list = Cleaner.remove_duplication(corresponding_list)
 

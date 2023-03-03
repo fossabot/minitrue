@@ -1,8 +1,11 @@
 # Program output
-/output/*.txt
-/output/all_proxies.yml
+/output/*
 /out.json
 /config/sub_list_test.json
+/config/generate_link_test.json
+!/output/minitrue.log
+!/output/speedtest.log
+!output/subconverter.log
 
 # Subconverter cache
 subconverter/cache/
