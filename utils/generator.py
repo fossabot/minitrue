@@ -46,31 +46,31 @@ class Generator:
         clash_nodes = Generator.fix_name(clash_nodes)
         clash = list(map(lambda x: f"  - {x['clash']}", clash_nodes))
         Generator.default_clients(clash, nodes_list.__len__(), num)
-        Generator.custom_clients(clash, nodes_list.__len__(), num)
+        Generator.custom_clients(nodes_list.__len__(), num)
         logging.info(f'Subs generated, total: {clash.__len__()}')
 
     @staticmethod
     def default_clients(clash, total_length, num):
         content_yaml = 'proxies:\n' + "\n".join(clash)
-        Generator.write_new_file('./output/clash_temp.txt', content_yaml)
+        Generator.write_new_file('./output/clash_all_temp.txt', content_yaml)
         Generator.write_new_file('./output/clash_all.yml',
-                                 Converter.convert_sub('../output/clash_temp.txt', 'clash', '&list=false'))
+                                 Converter.convert_sub('../output/clash_all_temp.txt', 'clash', '&list=false'))
         Generator.write_new_file('./output/surge_all.ini',
-                                 Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
+                                 Converter.convert_sub('../output/clash_all_temp.txt', 'surge&ver=4', '&list=false'))
 
         if total_length > num:
             content_yaml = 'proxies:\n' + "\n".join(clash[:num])
-            Generator.write_new_file('./output/clash_temp.txt', content_yaml)
+            Generator.write_new_file('./output/clash_part_temp.txt', content_yaml)
             Generator.write_new_file('./output/clash_part.yml',
-                                     Converter.convert_sub('../output/clash_temp.txt', 'clash', '&list=false'))
+                                     Converter.convert_sub('../output/clash_part_temp.txt', 'clash', '&list=false'))
             Generator.write_new_file('./output/surge_part.ini',
-                                     Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
+                                     Converter.convert_sub('../output/clash_part_temp.txt', 'surge&ver=4', '&list=false'))
         else:
             shutil.copy('./output/clash_all.yml', './output/clash_part.yml')
             shutil.copy('./output/surge_all.ini', './output/surge_part.ini')
 
     @staticmethod
-    def custom_clients(clash, total_length, num):
+    def custom_clients(total_length, num):
         # Notice: Your custom clients generator here
         pass
 

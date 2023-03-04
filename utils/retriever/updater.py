@@ -69,7 +69,7 @@ class Updater:
 
         # Notice: Your custom updater here
         if remarks == "":
-            pass
+            new_url = current_url
 
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=2))

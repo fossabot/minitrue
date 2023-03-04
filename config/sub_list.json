@@ -2,7 +2,7 @@
   {
     "remarks": "pojiezhiyuanjun/2023",
     "site": "https://github.com/pojiezhiyuanjun/2023",
-    "url": "https://raw.githubusercontent.com/pojiezhiyuanjun/2023/main/0301.txt",
+    "url": "https://raw.githubusercontent.com/pojiezhiyuanjun/2023/main/0304.txt",
     "format": "base64",
     "method": "custom",
     "enabled": true
@@ -10,7 +10,7 @@
   {
     "remarks": "Nodefree.org",
     "site": "https://nodefree.org/f/freenode",
-    "url": "https://nodefree.org/dy/2023/03/20230302.txt",
+    "url": "https://nodefree.org/dy/2023/03/20230304.txt",
     "format": "base64",
     "method": "custom",
     "enabled": true
@@ -18,7 +18,7 @@
   {
     "remarks": "FiFier/v2rayShare",
     "site": "https://github.com/FiFier/v2rayShare",
-    "url": "https://v2rayshare.com/wp-content/uploads/2023/03/20230302.txt",
+    "url": "https://v2rayshare.com/wp-content/uploads/2023/03/20230304.txt",
     "format": "base64",
     "method": "custom",
     "enabled": true
@@ -26,7 +26,7 @@
   {
     "remarks": "huanongkejizhijia/clashnode",
     "site": "https://github.com/huanongkejizhijia/clashnode",
-    "url": "https://clashnode.com/wp-content/uploads/2023/03/20230302.txt",
+    "url": "https://clashnode.com/wp-content/uploads/2023/03/20230304.txt",
     "format": "base64",
     "method": "custom",
     "enabled": true
@@ -50,7 +50,7 @@
   {
     "remarks": "abbasdvd3/node",
     "site": "https://github.com/abbasdvd3/node",
-    "url": "https://github.com/abbasdvd3/node/raw/c0f738bb937b5a2d56f907be351f28b8f7fe5f3e/12in1.yaml",
+    "url": "https://github.com/abbasdvd3/node/raw/fb2fe44e8f761eef668234916296f4d1f0802b3d/abbasdvd.node2.yaml",
     "format": "clash",
     "method": "custom",
     "enabled": true

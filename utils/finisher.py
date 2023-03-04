@@ -10,8 +10,10 @@ class Finisher:
             os.unlink('./out.json')
         if os.path.exists('./output/base_temp.txt'):
             os.unlink('./output/base_temp.txt')
-        if os.path.exists('./output/clash_temp.txt'):
-            os.unlink('./output/clash_temp.txt')
+        if os.path.exists('./output/clash_all_temp.txt'):
+            os.unlink('./output/clash_all_temp.txt')
+        if os.path.exists('./output/clash_part_temp.txt'):
+            os.unlink('./output/clash_part_temp.txt')
         Finisher.kill_processes('subconverter')
 
     @staticmethod

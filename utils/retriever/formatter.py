@@ -58,7 +58,11 @@ class Formatter:
     @staticmethod
     def custom_formatter(sub):
         # Notice: Your custom formatter here
-        pass
+        urls = re.split('\|', sub['url'])
+        converted = ''
+        for url in urls:
+            pass
+        return converted
 
     @staticmethod
     def format_nodes(raw_list):

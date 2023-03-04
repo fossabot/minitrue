@@ -10,7 +10,6 @@ parser.add_argument('-m', type=str, default='b', choices=['b', 'd', 'i'],
                     help='current place, d: domestic, i: international, default(%(default)s): both')
 parser.add_argument('-c', type=int, default=200, metavar='int', help='extract nodes count, default: 200')
 
-# TODO: Node speed test optimize
 # lite-windows-amd64-v3 & lite-linux-amd64 v0.14.1 https://github.com/xxf098/LiteSpeedTest
 # subconverter-win64 & subconverter-linux64 v0.7.2 https://github.com/tindy2013/subconverter
 
