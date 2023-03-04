@@ -67,6 +67,10 @@ class Updater:
                 new_url = current_url + '|'
             new_url = current_url if new_url == '' else new_url.strip('|')
 
+        # Notice: Your custom updater here
+        if remarks == "":
+            pass
+
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=2))
         s.mount('https://', HTTPAdapter(max_retries=2))

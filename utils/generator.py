@@ -37,7 +37,6 @@ class Generator:
 
         base_temp = base64.b64encode('\n'.join(nodes_list).encode('utf-8')).decode('ascii')
         Generator.write_new_file('./output/base_temp.txt', base_temp)
-
         clash_nodes = []
         clash_id = 0
         for line in Converter.convert_sub('../output/base_temp.txt', 'clash').split('\n'):
@@ -46,6 +45,12 @@ class Generator:
                 clash_id += 1
         clash_nodes = Generator.fix_name(clash_nodes)
         clash = list(map(lambda x: f"  - {x['clash']}", clash_nodes))
+        Generator.default_clients(clash, nodes_list.__len__(), num)
+        Generator.custom_clients(clash, nodes_list.__len__(), num)
+        logging.info(f'Subs generated, total: {clash.__len__()}')
+
+    @staticmethod
+    def default_clients(clash, total_length, num):
         content_yaml = 'proxies:\n' + "\n".join(clash)
         Generator.write_new_file('./output/clash_temp.txt', content_yaml)
         Generator.write_new_file('./output/clash_all.yml',
@@ -53,7 +58,7 @@ class Generator:
         Generator.write_new_file('./output/surge_all.ini',
                                  Converter.convert_sub('../output/clash_temp.txt', 'surge&ver=4', '&list=false'))
 
-        if nodes_list.__len__() > num:
+        if total_length > num:
             content_yaml = 'proxies:\n' + "\n".join(clash[:num])
             Generator.write_new_file('./output/clash_temp.txt', content_yaml)
             Generator.write_new_file('./output/clash_part.yml',
@@ -63,7 +68,11 @@ class Generator:
         else:
             shutil.copy('./output/clash_all.yml', './output/clash_part.yml')
             shutil.copy('./output/surge_all.ini', './output/surge_part.ini')
-        logging.info(f'Subs generated, total: {clash.__len__()}')
+
+    @staticmethod
+    def custom_clients(clash, total_length, num):
+        # Notice: Your custom clients generator here
+        pass
 
     @staticmethod
     def fix_name(corresponding_proxies: []):

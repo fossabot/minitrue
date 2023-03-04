@@ -56,6 +56,11 @@ class Formatter:
         return converted
 
     @staticmethod
+    def custom_formatter(sub):
+        # Notice: Your custom formatter here
+        pass
+
+    @staticmethod
     def format_nodes(raw_list):
         logging.info('Start fetching nodes')
         converted = ''
@@ -66,6 +71,9 @@ class Formatter:
                         converted += Formatter.plain_formatter(sub)
                     elif sub['format'] == 'links':
                         converted += Formatter.links_formatter(sub)
+                    elif sub['format'] == "":
+                        # Notice: Change to your format identifier
+                        converted += Formatter.custom_formatter(sub)
                     else:
                         converted += Formatter.default_formatter(sub)
             file_object.write(converted)
