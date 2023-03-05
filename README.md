@@ -31,4 +31,8 @@ python minitrue.py -m [b,d,i] -c [int]
 
 ## Donation
 
-[![Donation by NOWPayments](https://nowpayments.io/images/embeds/donation-button-black.svg)](https://nowpayments.io/donation?api_key=V4XDFCY-YNEMGKH-JR7HCJK-XVJFNMD)
+[![Donation by NOWPayments](https://nowpayments.io/images/embeds/donation-button-black.svg)](https://nowpayments.io/donation?api_key=V4XDFCY-YNEMGKH-JR7HCJK-XVJFNMD)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FWeeksCharrington%2Fminitrue.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FWeeksCharrington%2Fminitrue?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FWeeksCharrington%2Fminitrue.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FWeeksCharrington%2Fminitrue?ref=badge_large)
